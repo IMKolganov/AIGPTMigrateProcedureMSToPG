@@ -110,10 +110,12 @@ public class ProcedureService
                       "18. Translate `WHILE` loops from MSSQL to PostgreSQL `LOOP`, `FOR`, or `WHILE` constructs.\n" +
                       "19. Rename function parameters if they conflict with table column names to avoid errors.\n" +
                       "20. Remove `@` symbols from parameter names, as PostgreSQL does not use `@` for parameters.\n" +
-                      "21. If `OUT` parameters are used, convert the procedure to a function with `RETURNS` and use `RETURNING` to return the required value.\n" +
-                      "22. Convert procedures with `RETURNS TABLE` to functions, as PostgreSQL does not support `RETURNS TABLE` in procedures. Use `RETURNS TABLE` in functions with `RETURN QUERY` for the output.\n" +
-                      "23. Add `DROP TABLE IF EXISTS <table_name>;` at the end to clean up temporary tables."
+                      "21. Replace `@@ROWCOUNT` in MSSQL with `GET DIAGNOSTICS ROW_COUNT` in PostgreSQL to get the count of affected rows.\n" + 
+                      "22. If `OUT` parameters are used, convert the procedure to a function with `RETURNS` and use `RETURNING` to return the required value.\n" +
+                      "23. Convert procedures with `RETURNS TABLE` to functions, as PostgreSQL does not support `RETURNS TABLE` in procedures. Use `RETURNS TABLE` in functions with `RETURN QUERY` for the output.\n" +
+                      "24. Add `DROP TABLE IF EXISTS <table_name>;` at the end to clean up temporary tables."
                     : $"Continue converting the MSSQL stored procedure to PostgreSQL (Part {i + 1} of {chunks.Count}):\n{chunk}";
+
 
                 if (i == chunks.Count - 1)
                 {
