@@ -108,8 +108,10 @@ public class ProcedureService
                       "16. Adapt any table locking strategies for PostgreSQL using the `LOCK` statement.\n" +
                       "17. Ensure index and constraint compatibility with PostgreSQL’s indexing methods.\n" +
                       "18. Translate `WHILE` loops from MSSQL to PostgreSQL `LOOP`, `FOR`, or `WHILE` constructs.\n" +
-                      "19. Add `DROP TABLE IF EXISTS <table_name>;` at the end to clean up temporary tables."
+                      "19. Rename function parameters if they conflict with table column names to avoid errors.\n" +
+                      "20. Add `DROP TABLE IF EXISTS <table_name>;` at the end to clean up temporary tables."
                     : $"Continue converting the MSSQL stored procedure to PostgreSQL (Part {i + 1} of {chunks.Count}):\n{chunk}";
+
 
                 if (i == chunks.Count - 1)
                 {
