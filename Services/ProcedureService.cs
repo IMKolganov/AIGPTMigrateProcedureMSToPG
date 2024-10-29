@@ -13,12 +13,12 @@ public class ProcedureService
     private readonly string _apiKey;
     private readonly string _connectionString;
 
-    public ProcedureService(HttpClient httpClient, IOptions<OpenAIOptions> options, string connectionString)
+    public ProcedureService(HttpClient httpClient, IOptions<OpenAIOptions> openAiOptions, IOptions<ConnectionStrings> connectionOptions)
     {
         _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri(options.Value.BaseUrl);
-        _apiKey = options.Value.ApiKey;
-        _connectionString = connectionString;
+        _httpClient.BaseAddress = new Uri(openAiOptions.Value.BaseUrl);
+        _apiKey = openAiOptions.Value.ApiKey;
+        _connectionString = connectionOptions.Value.MSSQL;
     }
 
     public async Task<List<(string Name, string Definition)>> GetStoredProceduresFromMssql()
@@ -190,7 +190,7 @@ public class ProcedureService
         {
             var requestBody = new
             {
-                model = "gpt-3.5-turbo",
+                model = "gpt-4-turbo",//"gpt-3.5-turbo",
                 messages = new[]
                 {
                     new { role = "system", content = "You are a helpful assistant that converts SQL code." },
